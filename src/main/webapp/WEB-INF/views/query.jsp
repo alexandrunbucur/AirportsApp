@@ -217,13 +217,6 @@
     </div>
 </div>
 <div class="container">
-    <!-- Example row of columns -->
-
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <h2>Menu</h2>
-        </div>
-    </div>
 
     <div class="row">
         <FORM name="query" ACTION="query" METHOD="POST">
