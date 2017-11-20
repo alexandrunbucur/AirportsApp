@@ -81,21 +81,6 @@ public class HomeController {
         return "queryResult";
     }
 
-    public void generateRunwaysByCountry(List<Airport> airports, List<Runway> runways, String searchCode, List<CountrySearchResult> countrySearchResults) {
-        String airportRunways;
-        for (Airport airport : airports) {
-            airportRunways = "";
-            if (airport.getIso_country().equalsIgnoreCase(searchCode)) {
-                for (Runway runway : runways) {
-                    if (airport.getIdent().equalsIgnoreCase(runway.getAirport_ident()))
-
-                        airportRunways += runway.getId() + " - ";
-                }
-                countrySearchResults.add(new CountrySearchResult(airport.getName(), airportRunways));
-            }
-        }
-    }
-
 
     @RequestMapping("/reports")
     public String reports(Model model) throws SQLException, ClassNotFoundException {
@@ -124,6 +109,38 @@ public class HomeController {
         return "reports";
     }
 
+    /**
+     * This method generates a list of CountrySearchResult objects, which are used to store the name o the airport and the runway types available for that airport.
+     * The list contains all the airports and runways related to a specific country, which is given as an input by the user.
+     *
+     * @param airports
+     * @param runways
+     * @param searchCode
+     * @param countrySearchResults
+     */
+    public void generateRunwaysByCountry(List<Airport> airports, List<Runway> runways, String searchCode, List<CountrySearchResult> countrySearchResults) {
+        String airportRunways;
+        for (Airport airport : airports) {
+            airportRunways = "";
+            if (airport.getIso_country().equalsIgnoreCase(searchCode)) {
+                for (Runway runway : runways) {
+                    if (airport.getIdent().equalsIgnoreCase(runway.getAirport_ident()))
+
+                        airportRunways += runway.getId() + " - ";
+                }
+                countrySearchResults.add(new CountrySearchResult(airport.getName(), airportRunways));
+            }
+        }
+    }
+
+    /**
+     * This method generates a list of CountryRunwayTypes objects, which are used to store the name of the
+     * country and the types of runways available in that specific country.
+     *
+     * @param countries
+     * @param runways
+     * @param countryRunwayTypes
+     */
     public void generateCountryRunwayTypes(List<Country> countries, List<Runway> runways, List<CountryRunwayTypes> countryRunwayTypes) {
         String str = " ";
         for (Country country : countries) {
@@ -141,6 +158,14 @@ public class HomeController {
         }
     }
 
+    /**
+     * This method generates a sorted list of ReportTop objects, which are used to store the name of the
+     * country and the number of airports that are present in that country.
+     *
+     * @param airports
+     * @param countries
+     * @param reportTops
+     */
     public void generateTopReport(List<Airport> airports, List<Country> countries, List<ReportTop> reportTops) {
         int count;
         for (Country country : countries) {
@@ -154,6 +179,12 @@ public class HomeController {
         Collections.sort(reportTops);
     }
 
+    /**
+     * This method generates a list containing the top 10 most common Runway Identifications and their frequency.
+     *
+     * @param commonRunwayIds
+     * @throws SQLException
+     */
     public void generateRunwayIdList(List<CommonRunwayId> commonRunwayIds) throws SQLException {
         query = "select top 10 le_ident, count(*) as number from runway\n" +
                 "group by le_ident\n" +
@@ -176,6 +207,14 @@ public class HomeController {
         }
     }
 
+    /**
+     * The following method is used in order to connect to the H2 database and be able to execute SQL queries on it, which return the result
+     * as a ResultSet.
+     *
+     * @param query
+     * @return
+     * @throws SQLException
+     */
     public ResultSet connectToAndQueryDatabase(String query) throws SQLException {
 
         Connection con = null;

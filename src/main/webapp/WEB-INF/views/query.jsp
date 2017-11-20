@@ -198,8 +198,6 @@
             border-radius: 4px;
             box-sizing: border-box;
             background: #353535;
-            font-size: 14px;
-            border-radius: 0;
             font-weight: bold;
             text-align: center;
             text-decoration: none;

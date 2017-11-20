@@ -198,8 +198,6 @@
             border-radius: 4px;
             box-sizing: border-box;
             background: #353535;
-            font-size: 14px;
-            border-radius: 0;
             font-weight: bold;
             text-align: center;
             text-decoration: none;
@@ -217,13 +215,6 @@
     </div>
 </div>
 <div class="container">
-    <!-- Example row of columns -->
-
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <h2>Menu</h2>
-        </div>
-    </div>
 
     <div class="row">
         <FORM name="query" ACTION="query" METHOD="POST">
